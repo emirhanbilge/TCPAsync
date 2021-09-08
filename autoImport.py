@@ -5,6 +5,7 @@ pymodbusVersion = 0
 cwd = os.getcwd()+"/tcp.py"
 cwd2 = os.getcwd()+"/asynchronous.py"
 
+print("Current Director : " , cwd)
 
 try : 
     import pymodbus
@@ -14,16 +15,17 @@ except:
 
 if float(versionPython[0:3]) >= 3.5 :
     if float(pymodbusVersion[0:3]) >= 2.5:
-        #try:
-        fileUrl = str(pymodbus.__file__)[0:-11]
-        pathTcp = (fileUrl+"client/asynchronous/tcp.py")
-        pathAsync = "/server/asynchronous.py"
-        print(pathTcp)
-        os.replace(cwd , pathTcp) # ip alma kısmındaki değişiklikler için
-        os.replace(cwd2 , pathAsync) # async içerisindeki değişiklikler için
-        print("successfully transfered")
-        #except:
-         #   print("File already transferred")
+        try:
+            fileUrl = str(pymodbus.__file__)[0:-11]
+            pathTcp = (fileUrl+"client/asynchronous/tcp.py")
+            pathAsync = (fileUrl + "server/asynchronous.py")
+            print("Tcp Path : " ,  pathTcp)
+            print("Async Path : " , pathAsync)
+            os.replace(cwd , pathTcp) # ip alma kısmındaki değişiklikler için
+            os.replace(cwd2 , pathAsync) # async içerisindeki değişiklikler için
+            print("successfully transfered")
+        except:
+            print("File already transferred")
     else:
         sys.exit("pymodbus version must be bigger than >=2.5 ")
 
